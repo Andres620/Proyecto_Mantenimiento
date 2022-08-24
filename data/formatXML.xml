@@ -1,0 +1,197 @@
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <party>
+      <element>
+         <color>red</color>
+         <id>1</id>
+         <leader>1</leader>
+         <name>Red Party</name>
+      </element>
+      <element>
+         <color>blue</color>
+         <id>2</id>
+         <leader>12</leader>
+         <name>Blue Party</name>
+      </element>
+      <element>
+         <color>green</color>
+         <id>3</id>
+         <leader>18</leader>
+         <name>Green Party</name>
+      </element>
+      <element>
+         <color>yellow</color>
+         <id>4</id>
+         <leader>22</leader>
+         <name>Yellow Party</name>
+      </element>
+   </party>
+   <people>
+      <element>
+         <childrens>
+            <element>
+               <childrens>
+                  <element>
+                     <childrens>
+                        <element>
+                           <childrens />
+                           <id>11</id>
+                           <name>Mario</name>
+                           <party>1</party>
+                        </element>
+                        <element>
+                           <childrens />
+                           <id>18</id>
+                           <name>María</name>
+                           <party>3</party>
+                        </element>
+                     </childrens>
+                     <id>1</id>
+                     <name>Katherine</name>
+                     <party>1</party>
+                  </element>
+                  <element>
+                     <childrens>
+                        <element>
+                           <childrens />
+                           <id>21</id>
+                           <name>Pepito</name>
+                           <party>3</party>
+                        </element>
+                        <element>
+                           <childrens />
+                           <id>16</id>
+                           <name>Javier</name>
+                           <party>2</party>
+                        </element>
+                     </childrens>
+                     <id>7</id>
+                     <name>José</name>
+                     <party>1</party>
+                  </element>
+                  <element>
+                     <childrens>
+                        <element>
+                           <childrens>
+                              <element>
+                                 <childrens />
+                                 <id>23</id>
+                                 <name>Mariana</name>
+                                 <party>4</party>
+                              </element>
+                           </childrens>
+                           <id>2</id>
+                           <name>Miguel</name>
+                           <party>1</party>
+                        </element>
+                        <element>
+                           <childrens />
+                           <id>24</id>
+                           <name>Natalia</name>
+                           <party>3</party>
+                        </element>
+                        <element>
+                           <childrens />
+                           <id>3</id>
+                           <name>Ximena</name>
+                           <party>1</party>
+                        </element>
+                     </childrens>
+                     <id>9</id>
+                     <name>Jacinto</name>
+                     <party>1</party>
+                  </element>
+               </childrens>
+               <id>13</id>
+               <name>Pedro</name>
+               <party>2</party>
+            </element>
+            <element>
+               <childrens>
+                  <element>
+                     <childrens />
+                     <id>4</id>
+                     <name>Carlos</name>
+                     <party>1</party>
+                  </element>
+                  <element>
+                     <childrens />
+                     <id>25</id>
+                     <name>Ramiro</name>
+                     <party>3</party>
+                  </element>
+                  <element>
+                     <childrens />
+                     <id>17</id>
+                     <name>Santiago</name>
+                     <party>2</party>
+                  </element>
+               </childrens>
+               <id>20</id>
+               <name>Juan David</name>
+               <party>3</party>
+            </element>
+            <element>
+               <childrens>
+                  <element>
+                     <childrens />
+                     <id>6</id>
+                     <name>Ernesto</name>
+                     <party>1</party>
+                  </element>
+                  <element>
+                     <childrens />
+                     <id>8</id>
+                     <name>Bertulio</name>
+                     <party>1</party>
+                  </element>
+                  <element>
+                     <childrens>
+                        <element>
+                           <childrens />
+                           <id>12</id>
+                           <name>Milena</name>
+                           <party>2</party>
+                        </element>
+                        <element>
+                           <childrens />
+                           <id>19</id>
+                           <name>Laura</name>
+                           <party>3</party>
+                        </element>
+                        <element>
+                           <childrens>
+                              <element>
+                                 <childrens />
+                                 <id>22</id>
+                                 <name>Tiberio</name>
+                                 <party>4</party>
+                              </element>
+                           </childrens>
+                           <id>10</id>
+                           <name>Camila</name>
+                           <party>1</party>
+                        </element>
+                     </childrens>
+                     <id>14</id>
+                     <name>Sandra</name>
+                     <party>2</party>
+                  </element>
+               </childrens>
+               <id>15</id>
+               <name>Amanda</name>
+               <party>2</party>
+            </element>
+         </childrens>
+         <id>5</id>
+         <name>Juan</name>
+         <party>1</party>
+      </element>
+   </people>
+   <president>
+      <name>President Name</name>
+   </president>
+</root>
+

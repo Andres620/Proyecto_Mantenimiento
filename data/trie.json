@@ -1,0 +1,45 @@
+
+{
+   "people": [
+      {
+         "id": 5,
+         "name": "Juan",
+         "party": 1,
+         "childrens": [
+            {
+               "id": 13,
+               "name": "Pedro",
+               "party": 2,
+               "childrens": []
+            },
+            {
+               "id": 2,
+               "name": "javier",
+               "party": 2,
+               "childrens": [
+                  {
+                     "id": 7,
+                     "name": "Marilu",
+                     "party": 2,
+                     "childrens": [
+                        {
+                           "id": 13,
+                           "name": "Ricardo",
+                           "party": 2,
+                           "childrens": [
+                              {
+                                 "id": 43,
+                                 "name": "Julian",
+                                 "party": 2,
+                                 "childrens": []
+                              }
+                           ]
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}

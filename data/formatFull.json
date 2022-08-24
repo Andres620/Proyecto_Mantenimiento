@@ -1,0 +1,294 @@
+
+{
+   "president":
+   {
+      "name": "President Name"
+   },
+   "party": [
+      {
+         "id": 1,
+         "name": "Red Party",
+         "leader": 1,
+         "color": "red"
+      },
+      {
+         "id": 2,
+         "name": "Blue Party",
+         "leader": 12,
+         "color": "blue"
+      },
+      {
+         "id": 3,
+         "name": "Green Party",
+         "leader": 18,
+         "color": "green"
+      },
+      {
+         "id": 4,
+         "name": "Yellow Party",
+         "leader": 22,
+         "color": "yellow"
+      }
+   ],
+   "people": [
+      {
+         "id": 1,
+         "name": "Juan",
+         "party": 1,
+         "childrens": [
+            {
+               "id": 2,
+               "name": "Pedro",
+               "party": 2,
+               "childrens": [
+                  {
+                     "id": 3,
+                     "name": "Katherine",
+                     "party": 1,
+                     "childrens": [
+                        {
+                           "id": 4,
+                           "name": "Katherine",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 5,
+                           "name": "José",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 6,
+                           "name": "Jacinto",
+                           "party": 1,
+                           "childrens": []
+                        }
+                     ]
+                  },
+                  {
+                     "id": 7,
+                     "name": "José",
+                     "party": 1,
+                     "childrens": [
+                        {
+                           "id": 8,
+                           "name": "Katherine",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 9,
+                           "name": "José",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 10,
+                           "name": "Jacinto",
+                           "party": 1,
+                           "childrens": []
+                        }
+                     ]
+                  },
+                  {
+                     "id": 11,
+                     "name": "Jacinto",
+                     "party": 1,
+                     "childrens": [
+                        {
+                           "id": 12,
+                           "name": "Katherine",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 13,
+                           "name": "José",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 14,
+                           "name": "Jacinto",
+                           "party": 1,
+                           "childrens": []
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "id": 15,
+               "name": "Juan David",
+               "party": 2,
+               "childrens": [
+                  {
+                     "id": 16,
+                     "name": "Katherine",
+                     "party": 1,
+                     "childrens": [
+                        {
+                           "id": 17,
+                           "name": "Katherine",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 18,
+                           "name": "José",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 19,
+                           "name": "Jacinto",
+                           "party": 1,
+                           "childrens": []
+                        }
+                     ]
+                  },
+                  {
+                     "id": 20,
+                     "name": "José",
+                     "party": 1,
+                     "childrens": [
+                        {
+                           "id": 21,
+                           "name": "Katherine",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 22,
+                           "name": "José",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 23,
+                           "name": "Jacinto",
+                           "party": 1,
+                           "childrens": []
+                        }
+                     ]
+                  },
+                  {
+                     "id": 24,
+                     "name": "Jacinto",
+                     "party": 1,
+                     "childrens": [
+                        {
+                           "id": 25,
+                           "name": "Katherine",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 26,
+                           "name": "José",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 27,
+                           "name": "Jacinto",
+                           "party": 1,
+                           "childrens": []
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "id": 28,
+               "name": "Amanda",
+               "party": 2,
+               "childrens": [
+                  {
+                     "id": 29,
+                     "name": "Katherine",
+                     "party": 1,
+                     "childrens": [
+                        {
+                           "id": 30,
+                           "name": "Katherine",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 31,
+                           "name": "José",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 32,
+                           "name": "Jacinto",
+                           "party": 1,
+                           "childrens": []
+                        }
+                     ]
+                  },
+                  {
+                     "id": 33,
+                     "name": "José",
+                     "party": 1,
+                     "childrens": [
+                        {
+                           "id": 34,
+                           "name": "Katherine",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 35,
+                           "name": "José",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 36,
+                           "name": "Jacinto",
+                           "party": 1,
+                           "childrens": []
+                        }
+                     ]
+                  },
+                  {
+                     "id": 37,
+                     "name": "Jacinto",
+                     "party": 1,
+                     "childrens": [
+                        {
+                           "id": 38,
+                           "name": "Katherine",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 39,
+                           "name": "José",
+                           "party": 1,
+                           "childrens": []
+                        },
+                        {
+                           "id": 40,
+                           "name": "Jacinto",
+                           "party": 1,
+                           "childrens": []
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "id": 666,
+               "name": "El Colao",
+               "party": 2,
+               "childrens": []
+            }
+         ]
+      }
+   ]
+}
