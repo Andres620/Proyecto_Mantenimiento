@@ -12,7 +12,7 @@ app = Tk()
 style = ttk.Style()
 style.configure("BW.TLabel", foreground="black", background = "black")
 app.title('Congreso')
-imgPerson = PhotoImage(file="D:/Escritorio/Universidad/2019-1/src/images/congre.png")
+imgPerson = PhotoImage(file="./images/congre.png")
 
 myTree = TST()
 ventana = 0
