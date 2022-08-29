@@ -1,5 +1,4 @@
 from Nodo import TSTNode
-from uniones import Union
 
 class TST:
     paths = ""
@@ -402,7 +401,7 @@ class TST:
         for i in completPath:
             if(i[len(i)-1] == str(messageNode)):
                 iq = i
-        sml.append(im)
+        sml.append(iq)
         print(sml)
         return sml
 
