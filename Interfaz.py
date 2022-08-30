@@ -13,13 +13,14 @@ app = Tk()
 style = ttk.Style()
 style.configure("BW.TLabel", foreground="black", background = "black")
 app.title('Congreso')
-imgPerson = PhotoImage(file="D:/Escritorio/Universidad/2019-1/src/Proyecto_Mantenimiento/images/congre.png")
+imgPerson = PhotoImage(file="./images/congre.png")
+
 
 myTree = TST()
 ventana = 0
 
 
-#Loading data JSON
+# Loading data JSON
 def cargarDatos(ruta):
     with open(ruta) as contenido:
         estruc = json.load(contenido)
