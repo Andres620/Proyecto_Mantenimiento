@@ -18,7 +18,7 @@ myTree = TST()
 ventana = 0
 
 
-#Loading data JSON
+# Loading data JSON
 def cargarDatos(ruta):
     with open(ruta) as contenido:
         estruc = json.load(contenido)
