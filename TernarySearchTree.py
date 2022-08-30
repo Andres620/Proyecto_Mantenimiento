@@ -1,5 +1,4 @@
 from Nodo import TSTNode
-from uniones import Union
 
 
 class TST:

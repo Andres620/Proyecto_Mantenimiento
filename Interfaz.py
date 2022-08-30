@@ -1,3 +1,4 @@
+import re
 from tkinter import *
 from tkinter.filedialog import askopenfilename
 from tkinter import ttk
@@ -13,6 +14,7 @@ style = ttk.Style()
 style.configure("BW.TLabel", foreground="black", background = "black")
 app.title('Congreso')
 imgPerson = PhotoImage(file="./images/congre.png")
+
 
 myTree = TST()
 ventana = 0
@@ -103,8 +105,8 @@ def pintar():
             posNodes.append(e[i])
             canvas.create_image(e[i][0], e[i][1]-20, anchor= NW, image = imgPerson)#Create image person for people
     for i in range(0, snodes):
-        Txtid = Label(content, text = Nods[i][0]).place(x = posNodes[i][0]+40,y = posNodes[i][1])#Add label ID information
-        Txtname = Label(content, text = Nods[i][1]).place(x = posNodes[i][0]+40,y = posNodes[i][1]-20)#Add label name information
+        Txtid = Label(canvas, text = Nods[i][0]).place(x = posNodes[i][0]+40,y = posNodes[i][1])#Add label ID information
+        Txtname = Label(canvas, text = Nods[i][1]).place(x = posNodes[i][0]+40,y = posNodes[i][1]-20)#Add label name information
         if (myTree.getNode(myTree.root, Nods[i][0]).party) == 1:#If party in people is equals to 1, rectangle is red
             canvas.create_rectangle(posNodes[i][0]+5, posNodes[i][1]+10, posNodes[i][0] + 30, posNodes[i][1] + 30, fill="red")
         elif(myTree.getNode(myTree.root, Nods[i][0]).party) == 2:#If party in people is equals to 1, rectangle is blue
@@ -161,7 +163,7 @@ def addNewNodeWindow(win):
     entryFID = Entry(win,textvariable = entryVarF).grid(row = 3, column = 1)#Text Entry
     
 
-    btnAdd = ttk.Button(win, text="Agregar congresista",command = lambda: myTree.addNode(entryVarID.get(),entryVarName.get(),entryVarParty.get(),entryVarF.get())).grid(row = 6, column = 0)
+    btnAdd = ttk.Button(win, text="Agregar congresista",command = lambda: (myTree.addNode(entryVarID.get(),entryVarName.get(),entryVarParty.get(),entryVarF.get()),repintar())).grid(row = 6, column = 0)
     btnClose = ttk.Button(win, text = "Cerrar Ventana", command = lambda: win.withdraw()).grid(row = 6, column = 1)
 
 #New window for add new node
@@ -171,7 +173,7 @@ def addDeleteNodeWindow(win1):
     entryDelVar = tk.IntVar()#New integer variable for the id
     entryDelID = Entry(win1, textvariable = entryDelVar).grid(row = 0, column = 1)#Text Entry
 
-    btnDel = ttk.Button(win1, text="Eliminar congresista", command = lambda: myTree.delNode(myTree.root,entryDelVar.get())).grid(row = 6, column = 0)
+    btnDel = ttk.Button(win1, text="Eliminar congresista", command = lambda:(myTree.delNode(myTree.root,entryDelVar.get()), repintar())).grid(row = 6, column = 0)
     btnClose = ttk.Button(win1, text = "Cerrar Ventana", command =lambda: win1.withdraw()).grid(row = 6, column = 1)
 
 #New window for supplant node for new node
@@ -186,7 +188,7 @@ def supplantNodeWindow(win2):
     newID = Label(win2, text = "ID congresista suplente").grid(row = 2, column = 0)#Indicative label
     entryNewSup = tk.IntVar()#New integer variable for the id new
     entryNSup = Entry(win2, textvariable = entryNewSup).grid(row =2, column = 1)#Text Entry
-    btnSupp = ttk.Button(win2, text="Suplantar congresista", command = lambda: suppNode(entrySupVar.get(),entryNewSup.get(),entryVarName.get())).grid(row = 6, column = 0)
+    btnSupp = ttk.Button(win2, text="Suplantar congresista", command = lambda: (suppNode(entrySupVar.get(),entryNewSup.get(),entryVarName.get()), repintar())).grid(row = 6, column = 0)
     btnClose = ttk.Button(win2, text = "Cerrar Ventana", command =lambda: win2.withdraw()).grid(row = 6, column = 1)
 
 #Function for supplant node
@@ -223,12 +225,10 @@ def addJSON():
     return fn
 
 def repintar():
+    canvas.delete("all")
     update()
     pintar()
 
-#ruta = "data/formatJSON.json"
-#cargarDatos(addJSON())
-#update()
 
 content = Frame(app)
 content.pack(side = BOTTOM)
@@ -237,14 +237,23 @@ content.config(width=1360, height=760)
 canvas = Canvas(content, width = 1360, height =700, bg = 'white')
 canvas.place(x=0, y=0)
 
-
+#Menu Interfaz
 menuBar = Menu(app)#A menu bar is created
 app.config(menu=menuBar)#Config menu bar
 
-fileMenu = Menu(menuBar, tearoff=0)
-fileMenu.add_command(label = "Open JSON File", command = lambda: cargarDatos(addJSON())  )#Command command to open the JSON file
+archivoMenu = Menu(menuBar, tearoff= 0)
+archivoMenu.add_command(label= 'Importar Datos', command= lambda : (cargarDatos(addJSON())))
+archivoMenu.add_command(label = 'Cerrar', command = lambda: (canvas.delete("all")))
 
-menuBar.add_cascade(label="File", menu = fileMenu)
+#Menu Editar
+editarMenu = Menu(menuBar, tearoff= 0)
+editarMenu.add_command(label = 'Agregar ', command = lambda: (addNewNodeWindow(win)))
+editarMenu.add_command(label = 'Eliminar ', command = lambda: (addDeleteNodeWindow(win1)))
+editarMenu.add_command(label = 'Suplantar ', command = lambda: (supplantNodeWindow(win2)))
+
+menuBar.add_cascade(label= 'Archivo', menu= archivoMenu)
+menuBar.add_cascade(label= 'Editar', menu= editarMenu)
+
 win = Toplevel(app)#Creation new window
 win.geometry('300x150')#Size of window
 win.configure(background = 'white')#Color of background window
@@ -261,13 +270,13 @@ win3 = Toplevel(app)#Creation new window
 win3.geometry('300x150')#Size of window
 win3.configure(background = 'white')#Color of background window
 win3.title('Enviar Mensaje')#Title of the window
-btnAdd = ttk.Button(app, text="Agregar congresista", command = lambda: addNewNodeWindow(win)).pack(side = LEFT)
-btnDel = ttk.Button(app, text="Eliminar congresista", command = lambda : addDeleteNodeWindow(win1)).pack(side = LEFT)
-btnSup = ttk.Button(app, text="Suplantar congresista", command = lambda: supplantNodeWindow(win2)).pack(side = LEFT)
-btnMes = ttk.Button(app, text="Enviar Mensaje", command = lambda: messageWindow(win3)).pack(side = LEFT)
-btnUdt = ttk.Button(app, text="Generar recorridos", command = lambda: update()).pack(side = LEFT)
-btnRep = ttk.Button(app, text="Repintar", command = lambda : repintar()).pack(side = LEFT)
 
+#btnAdd = ttk.Button(app, text="Agregar congresista", command = lambda: addNewNodeWindow(win)).pack(side = LEFT)
+#btnDel = ttk.Button(app, text="Eliminar congresista", command = lambda : addDeleteNodeWindow(win1)).pack(side = LEFT)
+#btnSup = ttk.Button(app, text="Suplantar congresista", command = lambda: supplantNodeWindow(win2)).pack(side = LEFT)
+#btnMes = ttk.Button(app, text="Enviar Mensaje", command = lambda: messageWindow(win3)).pack(side = LEFT)
+#btnUdt = ttk.Button(app, text="Generar recorridos", command = lambda: update()).pack(side = LEFT)
+#tnRep = ttk.Button(app, text="Repintar", command = lambda : repintar()).pack(side = LEFT)
 
 win.withdraw()#Hide the window
 win1.withdraw()#Hide the window
