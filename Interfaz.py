@@ -1,3 +1,4 @@
+##instalar pip install matplotlib
 import re
 from tkinter import *
 from tkinter.filedialog import askopenfilename
@@ -6,7 +7,8 @@ from tkinter.ttk import *
 import tkinter as tk
 import json
 from TernarySearchTree import TST
-from Nodo import TSTNode
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
 
 
 app = Tk()
@@ -141,6 +143,28 @@ def pintar():
                         posHijos += 1
                 j += 1
         i += 1 #identify the level
+    
+
+#-------------------cambio---------------------------
+def dibujaEstadisticas():
+
+    etiquetas, unidades = datos()
+
+    fig = Figure()  # create a figure object
+    ax = fig.add_subplot(111)  # add an Axes to the figure
+
+    ax.pie(unidades, radius=1, labels=etiquetas, autopct='%0.2f%%', shadow=True,)
+    canvas1 = FigureCanvasTkAgg(fig, master=content)
+    canvas1.get_tk_widget().pack()
+
+
+def datos():
+    etiquetas=['Blue Party', 'Yellow Party', 'Green Party', 'Red Party']
+    unidades=[6, 2, 6, 11]
+
+    return etiquetas,unidades
+
+#-------------------cambio----------------
 
 #Create new window for add new node
 def addNewNodeWindow(win):
@@ -251,8 +275,17 @@ editarMenu.add_command(label = 'Agregar ', command = lambda: (addNewNodeWindow(w
 editarMenu.add_command(label = 'Eliminar ', command = lambda: (addDeleteNodeWindow(win1)))
 editarMenu.add_command(label = 'Suplantar ', command = lambda: (supplantNodeWindow(win2)))
 
-menuBar.add_cascade(label= 'Archivo', menu= archivoMenu)
-menuBar.add_cascade(label= 'Editar', menu= editarMenu)
+#Menu Estadisticas-------------------------------------------cambio--------------------------------
+estadisticasMenu = Menu(menuBar, tearoff= 0)
+estadisticasMenu.add_command(label = 'Grafico1', command = lambda: (dibujaEstadisticas()))
+
+menuBar.add_cascade(label= 'Archivo', menu = archivoMenu)
+menuBar.add_cascade(label= 'Editar', menu = editarMenu)
+menuBar.add_cascade(label= 'Estadistica', menu = estadisticasMenu)
+
+#-------------------------------cambio--------------------------
+
+
 
 win = Toplevel(app)#Creation new window
 win.geometry('300x150')#Size of window
