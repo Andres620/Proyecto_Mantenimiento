@@ -9,18 +9,20 @@ import json
 from TernarySearchTree import TST
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-
+import matplotlib.pyplot as plt
 
 app = Tk()
 style = ttk.Style()
 style.configure("BW.TLabel", foreground="black", background = "black")
 app.title('Congreso')
 imgPerson = PhotoImage(file="./images/congre.png")
-
+countPartyGreen = 0
+countPartyBlue = 0
+countPartyRed = 0
+countPartyYellow = 0
 
 myTree = TST()
 ventana = 0
-
 
 # Loading data JSON
 def cargarDatos(ruta):
@@ -28,13 +30,13 @@ def cargarDatos(ruta):
         estruc = json.load(contenido)
         buscarHijos(estruc)
         pintar()
-                    
+
 def buscarHijos(estr):
     for pers in estr.get('people'):
         print(pers.get('id'), pers.get('name'))
         myTree.addNode(pers.get('id'), pers.get('name'), pers.get('party'), 0) #NUEVA
         _buscarHijos(pers)
-        
+
 def _buscarHijos(padre):
     for pad in padre.get('childrens'):
         print(padre.get('id'),".",pad.get('id'), pad.get('name'))
@@ -45,7 +47,7 @@ def _buscarHijos(padre):
             _buscarHijos(pad)
 
 def update():
-    
+
     print("\n")
     print ("----Level Order----")
     myTree.levelOrder(myTree.root)
@@ -69,11 +71,11 @@ def update():
     print ("----Longer Path----")
     myTree.longerPath(myTree.root)
 
-    
+
     print("\n")
     print ("----Complete Tree----")
     myTree.completeTree(myTree.root)
-    
+
     print("\n")
     print ("----Full Tree----")
     myTree.fullTree(myTree.root)
@@ -110,19 +112,28 @@ def pintar():
         Txtid = Label(canvas, text = Nods[i][0]).place(x = posNodes[i][0]+40,y = posNodes[i][1])#Add label ID information
         Txtname = Label(canvas, text = Nods[i][1]).place(x = posNodes[i][0]+40,y = posNodes[i][1]-20)#Add label name information
         if (myTree.getNode(myTree.root, Nods[i][0]).party) == 1:#If party in people is equals to 1, rectangle is red
+            global countPartyRed
+            countPartyRed = countPartyRed + 1
             canvas.create_rectangle(posNodes[i][0]+5, posNodes[i][1]+10, posNodes[i][0] + 30, posNodes[i][1] + 30, fill="red")
         elif(myTree.getNode(myTree.root, Nods[i][0]).party) == 2:#If party in people is equals to 1, rectangle is blue
             canvas.create_rectangle(posNodes[i][0]+5, posNodes[i][1]+10, posNodes[i][0] + 30, posNodes[i][1] + 30, fill="blue")
+            global countPartyBlue
+            countPartyBlue = countPartyBlue + 1
         elif(myTree.getNode(myTree.root, Nods[i][0]).party) == 3:#If party in people is equals to 1, rectangle is green
+            global countPartyGreen
+            countPartyGreen = countPartyGreen + 1
             canvas.create_rectangle(posNodes[i][0]+5, posNodes[i][1]+10, posNodes[i][0] + 30, posNodes[i][1] + 30, fill="green")
         else:#If party in people is equals to 1, rectangle is yellow
             canvas.create_rectangle(posNodes[i][0]+5, posNodes[i][1]+10, posNodes[i][0] + 30, posNodes[i][1] + 30, fill="yellow")
+            global countPartyYellow
+            countPartyYellow = countPartyYellow + 1
+
 
     #SETTING LINES
     print("\n -- INTERFAZ --")
     print(nodes) #Array of nodes by level
     print(ArrayPos) #Array of nodes position by level
-    i = 0 
+    i = 0
     level = len(ArrayPos) #Array positions of nodes by level
     for nivel in nodes: #walk into levels array
         if(i + 1 >= level): #
@@ -143,26 +154,26 @@ def pintar():
                         posHijos += 1
                 j += 1
         i += 1 #identify the level
-    
+
 
 #-------------------cambio---------------------------
 def dibujaEstadisticas():
 
-    etiquetas, unidades = datos()
+    print(countPartyRed,countPartyBlue,countPartyYellow,countPartyGreen)
+    etiquetas, unidades, colores = datos()
+    plt.pie(unidades, labels=etiquetas, autopct="%0.1f %%", colors=colores)
+    plt.axis("equal")
+    plt.show()
 
-    fig = Figure()  # create a figure object
-    ax = fig.add_subplot(111)  # add an Axes to the figure
-
-    ax.pie(unidades, radius=1, labels=etiquetas, autopct='%0.2f%%', shadow=True,)
-    canvas1 = FigureCanvasTkAgg(fig, master=content)
+    canvas1 = FigureCanvasTkAgg(plt, master=content)
     canvas1.get_tk_widget().pack()
 
 
 def datos():
-    etiquetas=['Blue Party', 'Yellow Party', 'Green Party', 'Red Party']
-    unidades=[6, 2, 6, 11]
-
-    return etiquetas,unidades
+    etiquetas = ['Blue Party', 'Yellow Party', 'Green Party', 'Red Party']
+    unidades = [countPartyBlue, countPartyYellow, countPartyGreen, countPartyRed]
+    colores = ["#1520A6", "#FFFD01", "#3CB043", "#D0312D"]
+    return etiquetas, unidades, colores
 
 #-------------------cambio----------------
 
@@ -185,7 +196,7 @@ def addNewNodeWindow(win):
     fatherId = Label(win, text = "ID del padre").grid(row = 3, column = 0)#Indicative label
     entryVarF = tk.IntVar()#New integer variable for the Father ID
     entryFID = Entry(win,textvariable = entryVarF).grid(row = 3, column = 1)#Text Entry
-    
+
 
     btnAdd = ttk.Button(win, text="Agregar congresista",command = lambda: (myTree.addNode(entryVarID.get(),entryVarName.get(),entryVarParty.get(),entryVarF.get()),repintar())).grid(row = 6, column = 0)
     btnClose = ttk.Button(win, text = "Cerrar Ventana", command = lambda: win.withdraw()).grid(row = 6, column = 1)
@@ -317,8 +328,8 @@ win2.withdraw()#Hide the window
 win3.withdraw()#Hide the window
 
 app.mainloop()
-    
-        
-    
 
-    
+
+
+
+
