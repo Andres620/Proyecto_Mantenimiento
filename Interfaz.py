@@ -158,26 +158,33 @@ def pintar():
         i += 1 #identify the level
 
 
-#-------------------cambio---------------------------
+# -------------------new functionality  ---------------------------
+# Draws the data of the different parties taken def datos() in the form of percentages.
 def dibujaEstadisticas():
 
-    print(countPartyRed,countPartyBlue,countPartyYellow,countPartyGreen)
-    etiquetas, unidades, colores = datos()
-    plt.pie(unidades, labels=etiquetas, autopct="%0.1f %%", colors=colores)
+    etiquetas, unidades, colores, totalPeopleParties = datos()
+    figure = plt.figure()  # main panel
+    ax = figure.add_subplot()
+    ax.pie(unidades, labels=etiquetas, autopct="%0.1f %%", colors=colores)  # data and dimensions of the pie graph.
     plt.axis("equal")
+    figure.suptitle('Graph Parties', fontsize=14, fontweight='bold')  # title of the graph and properties.
+    ax.set_title('Total people' + ":" + str(totalPeopleParties))
     plt.show()
-
     canvas1 = FigureCanvasTkAgg(plt, master=content)
     canvas1.get_tk_widget().pack()
 
 
-def datos():
-    etiquetas = ['Blue Party', 'Yellow Party', 'Green Party', 'Red Party']
-    unidades = [countPartyBlue, countPartyYellow, countPartyGreen, countPartyRed]
-    colores = ["#1520A6", "#FFFD01", "#3CB043", "#D0312D"]
-    return etiquetas, unidades, colores
+# takes the data of the political parties from the tree, contains colors and labels of the parties necessary
+# for the pie graph as well as general data of importance.
 
-#-------------------cambio----------------
+def datos():
+    etiquetas = ['Blue Party' + ":" + str(countPartyBlue), 'Yellow Party' + ":" + str(countPartyYellow), 'Green Party' + ":" + str(countPartyGreen), 'Red Party' + ":" + str(countPartyRed)]
+    unidades = [countPartyBlue, countPartyYellow, countPartyGreen, countPartyRed]  # number of people at each game.
+    colores = ["#1520A6", "#FFFD01", "#3CB043", "#D0312D"]  # colors of parties ( Blue, Yellow, Green, Red).
+    totalPeopleParties = countPartyYellow + countPartyGreen + countPartyRed + countPartyBlue
+    return etiquetas, unidades, colores, totalPeopleParties
+
+# -------------------new functionality ----------------
 
 #Create new window for add new node
 def addNewNodeWindow(win):
