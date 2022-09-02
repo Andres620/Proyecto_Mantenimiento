@@ -1,4 +1,6 @@
 ##instalar pip install matplotlib
+##python -m pip install -U pip
+##python -m pip install -U matplotlib
 import re
 from tkinter import *
 from tkinter.filedialog import askopenfilename
