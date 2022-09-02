@@ -247,21 +247,6 @@ def suppNode(id, id1, name1):
         update()#Reprint tours
         pintar()#Repaint canvas
 
-def messageWindow(win3):
-    win3.deiconify()#Show the window
-    sml = []
-    emiID = Label(win3, text = "ID del Emisor").grid(row = 0, column = 0)#Indicative label
-    entryEmiVar = tk.IntVar()#New integer variable for the id
-    entryEmi = Entry(win3, textvariable = entryEmiVar).grid(row = 0, column = 1)#Text Entry
-    recID = Label(win3, text = "ID del receptor").grid(row = 1, column = 0)#Indicative label
-    entryRecVar = tk.IntVar()#New integer variable for the id
-    entryRec = Entry(win3, textvariable = entryRecVar).grid(row = 1, column = 1)#Text Entry
-    btnEn = ttk.Button(win3, text="Enviar Mensaje", command = lambda: myTree.sendMessage(sml, entryEmiVar.get(),entryRecVar.get())).grid(row = 6, column = 0)
-    btnClose = ttk.Button(win3, text = "Cerrar Ventana", command =lambda: win3.withdraw()).grid(row = 6, column = 1)
-
-
-
-
 def addJSON():
     filename = askopenfilename()
     fn = filename
@@ -332,21 +317,9 @@ win3.geometry('300x150')#Size of window
 win3.configure(background = 'white')#Color of background window
 win3.title('Enviar Mensaje')#Title of the window
 
-#btnAdd = ttk.Button(app, text="Agregar congresista", command = lambda: addNewNodeWindow(win)).pack(side = LEFT)
-#btnDel = ttk.Button(app, text="Eliminar congresista", command = lambda : addDeleteNodeWindow(win1)).pack(side = LEFT)
-#btnSup = ttk.Button(app, text="Suplantar congresista", command = lambda: supplantNodeWindow(win2)).pack(side = LEFT)
-#btnMes = ttk.Button(app, text="Enviar Mensaje", command = lambda: messageWindow(win3)).pack(side = LEFT)
-#btnUdt = ttk.Button(app, text="Generar recorridos", command = lambda: update()).pack(side = LEFT)
-#tnRep = ttk.Button(app, text="Repintar", command = lambda : repintar()).pack(side = LEFT)
-
 win.withdraw()#Hide the window
 win1.withdraw()#Hide the window
 win2.withdraw()#Hide the window
 win3.withdraw()#Hide the window
 
 app.mainloop()
-
-
-
-
-
