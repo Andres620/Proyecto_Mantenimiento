@@ -159,10 +159,10 @@ def pintar():
 
 
 # -------------------new functionality  ---------------------------
-# Draws the data of the different parties taken def datos() in the form of percentages.
-def dibujaEstadisticas():
+# Draws the data of the different parties taken datos() in the form of percentages.
+def graficaEstadisticaPartidos():
 
-    etiquetas, unidades, colores, totalPeopleParties = datos()
+    etiquetas, unidades, colores, totalPeopleParties = datosGrafica()
     figure = plt.figure()  # main panel
     ax = figure.add_subplot()
     ax.pie(unidades, labels=etiquetas, autopct="%0.1f %%", colors=colores)  # data and dimensions of the pie graph.
@@ -177,7 +177,7 @@ def dibujaEstadisticas():
 # takes the data of the political parties from the tree, contains colors and labels of the parties necessary
 # for the pie graph as well as general data of importance.
 
-def datos():
+def datosGrafica():
     etiquetas = ['Blue Party' + ":" + str(countPartyBlue), 'Yellow Party' + ":" + str(countPartyYellow), 'Green Party' + ":" + str(countPartyGreen), 'Red Party' + ":" + str(countPartyRed)]
     unidades = [countPartyBlue, countPartyYellow, countPartyGreen, countPartyRed]  # number of people at each game.
     colores = ["#1520A6", "#FFFD01", "#3CB043", "#D0312D"]  # colors of parties ( Blue, Yellow, Green, Red).
@@ -269,6 +269,14 @@ def addJSON():
     return fn
 
 def repintar():
+    global countPartyRed  # When repainting the tree, the values of the counters of
+    countPartyRed = 0     # each party were doubled, so the values are reset to 0 of each one
+    global countPartyBlue
+    countPartyBlue = 0
+    global countPartyGreen
+    countPartyGreen = 0
+    global countPartyYellow
+    countPartyYellow = 0
     canvas.delete("all")
     update()
     pintar()
@@ -295,15 +303,15 @@ editarMenu.add_command(label = 'Agregar ', command = lambda: (addNewNodeWindow(w
 editarMenu.add_command(label = 'Eliminar ', command = lambda: (addDeleteNodeWindow(win1)))
 editarMenu.add_command(label = 'Suplantar ', command = lambda: (supplantNodeWindow(win2)))
 
-#Menu Estadisticas-------------------------------------------cambio--------------------------------
+# Menu Estadisticas------------------------------------------nueva funcionalidad-----------
 estadisticasMenu = Menu(menuBar, tearoff= 0)
-estadisticasMenu.add_command(label = 'Grafico1', command = lambda: (dibujaEstadisticas()))
+estadisticasMenu.add_command(label = 'Grafico1', command = lambda: (graficaEstadisticaPartidos()))
 
 menuBar.add_cascade(label= 'Archivo', menu = archivoMenu)
 menuBar.add_cascade(label= 'Editar', menu = editarMenu)
 menuBar.add_cascade(label= 'Estadistica', menu = estadisticasMenu)
 
-#-------------------------------cambio--------------------------
+#-------------------------------nueva funcionalidad--------------------------
 
 
 
