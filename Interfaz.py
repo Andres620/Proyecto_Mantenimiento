@@ -160,11 +160,14 @@ def pintar():
 def dibujaEstadisticas():
 
     print(countPartyRed,countPartyBlue,countPartyYellow,countPartyGreen)
-    etiquetas, unidades, colores = datos()
-    plt.pie(unidades, labels=etiquetas, autopct="%0.1f %%", colors=colores)
+    etiquetas, unidades, colores, suma = datos()
+    fig = plt.figure()
+    ax = fig.add_subplot()
+    ax.pie(unidades, labels=etiquetas, autopct="%0.1f %%", colors=colores)
     plt.axis("equal")
+    fig.suptitle('Graph Parties', fontsize=14, fontweight='bold')
+    ax.set_title('Total people' + ":" + str(suma))
     plt.show()
-
     canvas1 = FigureCanvasTkAgg(plt, master=content)
     canvas1.get_tk_widget().pack()
 
@@ -173,7 +176,8 @@ def datos():
     etiquetas = ['Blue Party', 'Yellow Party', 'Green Party', 'Red Party']
     unidades = [countPartyBlue, countPartyYellow, countPartyGreen, countPartyRed]
     colores = ["#1520A6", "#FFFD01", "#3CB043", "#D0312D"]
-    return etiquetas, unidades, colores
+    suma = countPartyYellow + countPartyGreen + countPartyRed + countPartyBlue
+    return etiquetas, unidades, colores, suma
 
 #-------------------cambio----------------
 
