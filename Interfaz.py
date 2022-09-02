@@ -159,7 +159,7 @@ def pintar():
 #-------------------cambio---------------------------
 def dibujaEstadisticas():
 
-    print(countPartyRed,countPartyBlue,countPartyYellow,countPartyGreen)
+    print(countPartyRed, countPartyBlue, countPartyYellow, countPartyGreen)
     etiquetas, unidades, colores, suma = datos()
     fig = plt.figure()
     ax = fig.add_subplot()
@@ -173,7 +173,7 @@ def dibujaEstadisticas():
 
 
 def datos():
-    etiquetas = ['Blue Party', 'Yellow Party', 'Green Party', 'Red Party']
+    etiquetas = ['Blue Party' + ":" + str(countPartyBlue), 'Yellow Party' + ":" + str(countPartyYellow), 'Green Party' + ":" + str(countPartyGreen), 'Red Party' + ":" + str(countPartyRed)]
     unidades = [countPartyBlue, countPartyYellow, countPartyGreen, countPartyRed]
     colores = ["#1520A6", "#FFFD01", "#3CB043", "#D0312D"]
     suma = countPartyYellow + countPartyGreen + countPartyRed + countPartyBlue
