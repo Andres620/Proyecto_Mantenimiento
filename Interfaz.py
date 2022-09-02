@@ -1,3 +1,4 @@
+##instalar pip install matplotlib
 import re
 from tkinter import *
 from tkinter.filedialog import askopenfilename
@@ -6,19 +7,22 @@ from tkinter.ttk import *
 import tkinter as tk
 import json
 from TernarySearchTree import TST
-from Nodo import TSTNode
-
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 
 app = Tk()
 style = ttk.Style()
 style.configure("BW.TLabel", foreground="black", background = "black")
 app.title('Congreso')
 imgPerson = PhotoImage(file="./images/congre.png")
-
+countPartyGreen = 0
+countPartyBlue = 0
+countPartyRed = 0
+countPartyYellow = 0
 
 myTree = TST()
 ventana = 0
-
 
 # Loading data JSON
 def cargarDatos(ruta):
@@ -26,13 +30,13 @@ def cargarDatos(ruta):
         estruc = json.load(contenido)
         buscarHijos(estruc)
         pintar()
-                    
+
 def buscarHijos(estr):
     for pers in estr.get('people'):
         print(pers.get('id'), pers.get('name'))
         myTree.addNode(pers.get('id'), pers.get('name'), pers.get('party'), 0) #NUEVA
         _buscarHijos(pers)
-        
+
 def _buscarHijos(padre):
     for pad in padre.get('childrens'):
         print(padre.get('id'),".",pad.get('id'), pad.get('name'))
@@ -43,7 +47,7 @@ def _buscarHijos(padre):
             _buscarHijos(pad)
 
 def update():
-    
+
     print("\n")
     print ("----Level Order----")
     myTree.levelOrder(myTree.root)
@@ -67,11 +71,11 @@ def update():
     print ("----Longer Path----")
     myTree.longerPath(myTree.root)
 
-    
+
     print("\n")
     print ("----Complete Tree----")
     myTree.completeTree(myTree.root)
-    
+
     print("\n")
     print ("----Full Tree----")
     myTree.fullTree(myTree.root)
@@ -108,19 +112,28 @@ def pintar():
         Txtid = Label(canvas, text = Nods[i][0]).place(x = posNodes[i][0]+40,y = posNodes[i][1])#Add label ID information
         Txtname = Label(canvas, text = Nods[i][1]).place(x = posNodes[i][0]+40,y = posNodes[i][1]-20)#Add label name information
         if (myTree.getNode(myTree.root, Nods[i][0]).party) == 1:#If party in people is equals to 1, rectangle is red
+            global countPartyRed
+            countPartyRed = countPartyRed + 1
             canvas.create_rectangle(posNodes[i][0]+5, posNodes[i][1]+10, posNodes[i][0] + 30, posNodes[i][1] + 30, fill="red")
         elif(myTree.getNode(myTree.root, Nods[i][0]).party) == 2:#If party in people is equals to 1, rectangle is blue
             canvas.create_rectangle(posNodes[i][0]+5, posNodes[i][1]+10, posNodes[i][0] + 30, posNodes[i][1] + 30, fill="blue")
+            global countPartyBlue
+            countPartyBlue = countPartyBlue + 1
         elif(myTree.getNode(myTree.root, Nods[i][0]).party) == 3:#If party in people is equals to 1, rectangle is green
+            global countPartyGreen
+            countPartyGreen = countPartyGreen + 1
             canvas.create_rectangle(posNodes[i][0]+5, posNodes[i][1]+10, posNodes[i][0] + 30, posNodes[i][1] + 30, fill="green")
         else:#If party in people is equals to 1, rectangle is yellow
             canvas.create_rectangle(posNodes[i][0]+5, posNodes[i][1]+10, posNodes[i][0] + 30, posNodes[i][1] + 30, fill="yellow")
+            global countPartyYellow
+            countPartyYellow = countPartyYellow + 1
+
 
     #SETTING LINES
     print("\n -- INTERFAZ --")
     print(nodes) #Array of nodes by level
     print(ArrayPos) #Array of nodes position by level
-    i = 0 
+    i = 0
     level = len(ArrayPos) #Array positions of nodes by level
     for nivel in nodes: #walk into levels array
         if(i + 1 >= level): #
@@ -142,6 +155,35 @@ def pintar():
                 j += 1
         i += 1 #identify the level
 
+
+# -------------------new functionality  ---------------------------
+# Draws the data of the different parties taken def datos() in the form of percentages.
+def dibujaEstadisticas():
+
+    etiquetas, unidades, colores, totalPeopleParties = datos()
+    figure = plt.figure()  # main panel
+    ax = figure.add_subplot()
+    ax.pie(unidades, labels=etiquetas, autopct="%0.1f %%", colors=colores)  # data and dimensions of the pie graph.
+    plt.axis("equal")
+    figure.suptitle('Graph Parties', fontsize=14, fontweight='bold')  # title of the graph and properties.
+    ax.set_title('Total people' + ":" + str(totalPeopleParties))
+    plt.show()
+    canvas1 = FigureCanvasTkAgg(plt, master=content)
+    canvas1.get_tk_widget().pack()
+
+
+# takes the data of the political parties from the tree, contains colors and labels of the parties necessary
+# for the pie graph as well as general data of importance.
+
+def datos():
+    etiquetas = ['Blue Party' + ":" + str(countPartyBlue), 'Yellow Party' + ":" + str(countPartyYellow), 'Green Party' + ":" + str(countPartyGreen), 'Red Party' + ":" + str(countPartyRed)]
+    unidades = [countPartyBlue, countPartyYellow, countPartyGreen, countPartyRed]  # number of people at each game.
+    colores = ["#1520A6", "#FFFD01", "#3CB043", "#D0312D"]  # colors of parties ( Blue, Yellow, Green, Red).
+    totalPeopleParties = countPartyYellow + countPartyGreen + countPartyRed + countPartyBlue
+    return etiquetas, unidades, colores, totalPeopleParties
+
+# -------------------new functionality ----------------
+
 #Create new window for add new node
 def addNewNodeWindow(win):
     win.deiconify()#Show the window
@@ -161,7 +203,7 @@ def addNewNodeWindow(win):
     fatherId = Label(win, text = "ID del padre").grid(row = 3, column = 0)#Indicative label
     entryVarF = tk.IntVar()#New integer variable for the Father ID
     entryFID = Entry(win,textvariable = entryVarF).grid(row = 3, column = 1)#Text Entry
-    
+
 
     btnAdd = ttk.Button(win, text="Agregar congresista",command = lambda: (myTree.addNode(entryVarID.get(),entryVarName.get(),entryVarParty.get(),entryVarF.get()),repintar())).grid(row = 6, column = 0)
     btnClose = ttk.Button(win, text = "Cerrar Ventana", command = lambda: win.withdraw()).grid(row = 6, column = 1)
@@ -251,8 +293,17 @@ editarMenu.add_command(label = 'Agregar ', command = lambda: (addNewNodeWindow(w
 editarMenu.add_command(label = 'Eliminar ', command = lambda: (addDeleteNodeWindow(win1)))
 editarMenu.add_command(label = 'Suplantar ', command = lambda: (supplantNodeWindow(win2)))
 
-menuBar.add_cascade(label= 'Archivo', menu= archivoMenu)
-menuBar.add_cascade(label= 'Editar', menu= editarMenu)
+#Menu Estadisticas-------------------------------------------cambio--------------------------------
+estadisticasMenu = Menu(menuBar, tearoff= 0)
+estadisticasMenu.add_command(label = 'Grafico1', command = lambda: (dibujaEstadisticas()))
+
+menuBar.add_cascade(label= 'Archivo', menu = archivoMenu)
+menuBar.add_cascade(label= 'Editar', menu = editarMenu)
+menuBar.add_cascade(label= 'Estadistica', menu = estadisticasMenu)
+
+#-------------------------------cambio--------------------------
+
+
 
 win = Toplevel(app)#Creation new window
 win.geometry('300x150')#Size of window
@@ -284,8 +335,8 @@ win2.withdraw()#Hide the window
 win3.withdraw()#Hide the window
 
 app.mainloop()
-    
-        
-    
 
-    
+
+
+
+

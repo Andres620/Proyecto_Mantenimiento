@@ -176,7 +176,8 @@ class TST:
 
     def adoptChildNode(self, parent, child):
         """
-        when a node is removed add the child node to the new parent node
+        when a node is removed, it takes the child nodes of the node 
+        that was removed and adds them to a new parent node
 
         Parameters
         ----------
