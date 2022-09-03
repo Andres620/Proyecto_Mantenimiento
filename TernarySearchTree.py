@@ -436,18 +436,3 @@ class TST:
         for i in range(len(path)):
             x = i + 1
         print(x)
-
-    def sendMessage(self, sml, currentNode, messageNode):
-        name = self.getNode(self.root, currentNode).name
-        ide = self.getNode(self.root, currentNode).id
-        pNode = self.getNode(self.root, currentNode).parentNode
-        completPath = self._paths(self.root, self.arrayPaths, self.paths)  # get array of paths
-        sml.append(str(ide))
-        if (self.getNode(self.root, currentNode).hasParentNode()):
-            self.sendMessage(sml, self.getNode(self.root, currentNode).parentNode.id, messageNode)
-        for i in completPath:
-            if (i[len(i) - 1] == str(messageNode)):
-                iq = i
-        sml.append(iq)
-        print(sml)
-        return sml

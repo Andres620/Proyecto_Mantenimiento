@@ -1,4 +1,6 @@
 ##instalar pip install matplotlib
+##python -m pip install -U pip
+##python -m pip install -U matplotlib
 import re
 from tkinter import *
 from tkinter.filedialog import askopenfilename
@@ -157,10 +159,10 @@ def pintar():
 
 
 # -------------------new functionality  ---------------------------
-# Draws the data of the different parties taken def datos() in the form of percentages.
-def dibujaEstadisticas():
+# Draws the data of the different parties taken datos() in the form of percentages.
+def graficaEstadisticaPartidos():
 
-    etiquetas, unidades, colores, totalPeopleParties = datos()
+    etiquetas, unidades, colores, totalPeopleParties = datosGrafica()
     figure = plt.figure()  # main panel
     ax = figure.add_subplot()
     ax.pie(unidades, labels=etiquetas, autopct="%0.1f %%", colors=colores)  # data and dimensions of the pie graph.
@@ -175,7 +177,7 @@ def dibujaEstadisticas():
 # takes the data of the political parties from the tree, contains colors and labels of the parties necessary
 # for the pie graph as well as general data of importance.
 
-def datos():
+def datosGrafica():
     etiquetas = ['Blue Party' + ":" + str(countPartyBlue), 'Yellow Party' + ":" + str(countPartyYellow), 'Green Party' + ":" + str(countPartyGreen), 'Red Party' + ":" + str(countPartyRed)]
     unidades = [countPartyBlue, countPartyYellow, countPartyGreen, countPartyRed]  # number of people at each game.
     colores = ["#1520A6", "#FFFD01", "#3CB043", "#D0312D"]  # colors of parties ( Blue, Yellow, Green, Red).
@@ -245,21 +247,6 @@ def suppNode(id, id1, name1):
         update()#Reprint tours
         pintar()#Repaint canvas
 
-def messageWindow(win3):
-    win3.deiconify()#Show the window
-    sml = []
-    emiID = Label(win3, text = "ID del Emisor").grid(row = 0, column = 0)#Indicative label
-    entryEmiVar = tk.IntVar()#New integer variable for the id
-    entryEmi = Entry(win3, textvariable = entryEmiVar).grid(row = 0, column = 1)#Text Entry
-    recID = Label(win3, text = "ID del receptor").grid(row = 1, column = 0)#Indicative label
-    entryRecVar = tk.IntVar()#New integer variable for the id
-    entryRec = Entry(win3, textvariable = entryRecVar).grid(row = 1, column = 1)#Text Entry
-    btnEn = ttk.Button(win3, text="Enviar Mensaje", command = lambda: myTree.sendMessage(sml, entryEmiVar.get(),entryRecVar.get())).grid(row = 6, column = 0)
-    btnClose = ttk.Button(win3, text = "Cerrar Ventana", command =lambda: win3.withdraw()).grid(row = 6, column = 1)
-
-
-
-
 def addJSON():
     filename = askopenfilename()
     fn = filename
@@ -267,6 +254,14 @@ def addJSON():
     return fn
 
 def repintar():
+    global countPartyRed  # When repainting the tree, the values of the counters of
+    countPartyRed = 0     # each party were doubled, so the values are reset to 0 of each one
+    global countPartyBlue
+    countPartyBlue = 0
+    global countPartyGreen
+    countPartyGreen = 0
+    global countPartyYellow
+    countPartyYellow = 0
     canvas.delete("all")
     update()
     pintar()
@@ -293,15 +288,15 @@ editarMenu.add_command(label = 'Agregar ', command = lambda: (addNewNodeWindow(w
 editarMenu.add_command(label = 'Eliminar ', command = lambda: (addDeleteNodeWindow(win1)))
 editarMenu.add_command(label = 'Suplantar ', command = lambda: (supplantNodeWindow(win2)))
 
-#Menu Estadisticas-------------------------------------------cambio--------------------------------
+# Menu Estadisticas------------------------------------------nueva funcionalidad-----------
 estadisticasMenu = Menu(menuBar, tearoff= 0)
-estadisticasMenu.add_command(label = 'Grafico1', command = lambda: (dibujaEstadisticas()))
+estadisticasMenu.add_command(label = 'Grafico1', command = lambda: (graficaEstadisticaPartidos()))
 
 menuBar.add_cascade(label= 'Archivo', menu = archivoMenu)
 menuBar.add_cascade(label= 'Editar', menu = editarMenu)
 menuBar.add_cascade(label= 'Estadistica', menu = estadisticasMenu)
 
-#-------------------------------cambio--------------------------
+#-------------------------------nueva funcionalidad--------------------------
 
 
 
@@ -322,21 +317,9 @@ win3.geometry('300x150')#Size of window
 win3.configure(background = 'white')#Color of background window
 win3.title('Enviar Mensaje')#Title of the window
 
-#btnAdd = ttk.Button(app, text="Agregar congresista", command = lambda: addNewNodeWindow(win)).pack(side = LEFT)
-#btnDel = ttk.Button(app, text="Eliminar congresista", command = lambda : addDeleteNodeWindow(win1)).pack(side = LEFT)
-#btnSup = ttk.Button(app, text="Suplantar congresista", command = lambda: supplantNodeWindow(win2)).pack(side = LEFT)
-#btnMes = ttk.Button(app, text="Enviar Mensaje", command = lambda: messageWindow(win3)).pack(side = LEFT)
-#btnUdt = ttk.Button(app, text="Generar recorridos", command = lambda: update()).pack(side = LEFT)
-#tnRep = ttk.Button(app, text="Repintar", command = lambda : repintar()).pack(side = LEFT)
-
 win.withdraw()#Hide the window
 win1.withdraw()#Hide the window
 win2.withdraw()#Hide the window
 win3.withdraw()#Hide the window
 
 app.mainloop()
-
-
-
-
-
