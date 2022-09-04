@@ -1,4 +1,4 @@
-from Nodo import TSTNode
+from TST.Nodo import TSTNode
 
 
 class TST:
@@ -84,7 +84,7 @@ class TST:
             node = self.getNode(root, id)  # search the node by id
             return self._delNode(node)
         else:
-            return None
+            return False
 
     def _delNode(self, currentNode):
         bool = False
@@ -131,9 +131,9 @@ class TST:
             else:  # currentNode.leftChild has more childs
                 if (currentNode.hasAllChilds()):  # All brothers
                     if (currentNode.leftChild.hasRightChild()):
-                        self.findEmptyChild(currentNode.leftChild.rightChild, currentNode.rightChild, findbool)
+                        self.findNewParentNode(currentNode.leftChild.rightChild, currentNode.rightChild, findbool)
                         currentNode.leftChild.rightChild = None
-                    self.findEmptyChild(currentNode.leftChild.middleChild, currentNode.middleChild, findbool)
+                    self.findNewParentNode(currentNode.leftChild.middleChild, currentNode.middleChild, findbool)
                     currentNode.leftChild.middleChild = None
 
                     currentNode.middleChild.parentNode = currentNode.leftChild
@@ -145,9 +145,9 @@ class TST:
                     bool = True
                 else:  # only current.middleChild
                     if (currentNode.leftChild.hasRightChild()):
-                        self.findEmptyChild(currentNode.leftChild.rightChild, currentNode.middleChild, findbool)
+                        self.findNewParentNode(currentNode.leftChild.rightChild, currentNode.middleChild, findbool)
                         currentNode.leftChild.rightChild = None
-                    self.findEmptyChild(currentNode.leftChild.middleChild, currentNode.middleChild, findbool)
+                    self.findNewParentNode(currentNode.leftChild.middleChild, currentNode.middleChild, findbool)
                     currentNode.leftChild.middleChild = None
 
                     currentNode.middleChild.parentNode = currentNode.leftChild
@@ -207,9 +207,9 @@ class TST:
 
 
 
-    def findEmptyChild(self, hijoadop, padreadop, findbool):
+    def findNewParentNode(self, hijoadop, padreadop, findbool):
         """
-        recursively searches for a node that can adopt the child node
+        when a node is removed, it recursively searches for a node that can adopt the child node
 
         Parameters
         ----------
@@ -231,11 +231,11 @@ class TST:
                 findbool = True
             else:
                 if padreadop.hasLeftChild():
-                    findbool = self.findEmptyChild(hijoadop, padreadop.leftChild, findbool)
+                    findbool = self.findNewParentNode(hijoadop, padreadop.leftChild, findbool)
                 if padreadop.hasMiddleChild():
-                    findbool = self.findEmptyChild(hijoadop, padreadop.middleChild, findbool)
+                    findbool = self.findNewParentNode(hijoadop, padreadop.middleChild, findbool)
                 if padreadop.hasRightChild():
-                        findbool = self.findEmptyChild(hijoadop, padreadop.rightChild, findbool)
+                        findbool = self.findNewParentNode(hijoadop, padreadop.rightChild, findbool)
         return findbool
 
 

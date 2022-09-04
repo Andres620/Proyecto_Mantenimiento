@@ -8,7 +8,7 @@ from tkinter import ttk
 from tkinter.ttk import *
 import tkinter as tk
 import json
-from TernarySearchTree import TST
+from TST.TernarySearchTree import TST
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
@@ -17,7 +17,7 @@ app = Tk()
 style = ttk.Style()
 style.configure("BW.TLabel", foreground="black", background = "black")
 app.title('Congreso')
-imgPerson = PhotoImage(file="./images/congre.png")
+imgPerson = PhotoImage(file="../images/congre.png")
 countPartyGreen = 0
 countPartyBlue = 0
 countPartyRed = 0
@@ -26,7 +26,7 @@ countPartyYellow = 0
 myTree = TST()
 ventana = 0
 
-# Loading data JSON
+# Loading JSON_Information JSON
 def cargarDatos(ruta):
     with open(ruta) as contenido:
         estruc = json.load(contenido)
@@ -159,28 +159,35 @@ def pintar():
 
 
 # -------------------new functionality  ---------------------------
-# Draws the data of the different parties taken datos() in the form of percentages.
+# Draws the JSON_Information of the different parties taken datos() in the form of percentages.
 def graficaEstadisticaPartidos():
-
+    """
+    Draws the JSON_Information of the different parties taken datos() in the form of percentages.
+    """
     etiquetas, unidades, colores, totalPeopleParties = datosGrafica()
-    figure = plt.figure()  # main panel
+    figure = plt.figure()  
     ax = figure.add_subplot()
-    ax.pie(unidades, labels=etiquetas, autopct="%0.1f %%", colors=colores)  # data and dimensions of the pie graph.
+    ax.pie(unidades, labels=etiquetas, autopct="%0.1f %%", colors=colores) 
     plt.axis("equal")
-    figure.suptitle('Graph Parties', fontsize=14, fontweight='bold')  # title of the graph and properties.
+    figure.suptitle('Graph Parties', fontsize=14, fontweight='bold')
     ax.set_title('Total people' + ":" + str(totalPeopleParties))
     plt.show()
     canvas1 = FigureCanvasTkAgg(plt, master=content)
     canvas1.get_tk_widget().pack()
 
 
-# takes the data of the political parties from the tree, contains colors and labels of the parties necessary
-# for the pie graph as well as general data of importance.
+# takes the JSON_Information of the political parties from the tree, contains colors and labels of the parties necessary
+# for the pie graph as well as general JSON_Information of importance.
 
 def datosGrafica():
-    etiquetas = ['Blue Party' + ":" + str(countPartyBlue), 'Yellow Party' + ":" + str(countPartyYellow), 'Green Party' + ":" + str(countPartyGreen), 'Red Party' + ":" + str(countPartyRed)]
-    unidades = [countPartyBlue, countPartyYellow, countPartyGreen, countPartyRed]  # number of people at each game.
-    colores = ["#1520A6", "#FFFD01", "#3CB043", "#D0312D"]  # colors of parties ( Blue, Yellow, Green, Red).
+    '''
+    Takes the JSON_Information of the political parties from the tree, contains colors and labels of the parties necessary
+    for the pie graph as well as general JSON_Information of importance.
+    '''
+    etiquetas = ['Blue Party' + ":" + str(countPartyBlue), 'Yellow Party' + ":" + str(countPartyYellow), 
+        'Green Party' + ":" + str(countPartyGreen), 'Red Party' + ":" + str(countPartyRed)]
+    unidades = [countPartyBlue, countPartyYellow, countPartyGreen, countPartyRed] 
+    colores = ["#1520A6", "#FFFD01", "#3CB043", "#D0312D"]
     totalPeopleParties = countPartyYellow + countPartyGreen + countPartyRed + countPartyBlue
     return etiquetas, unidades, colores, totalPeopleParties
 

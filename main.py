@@ -1,5 +1,5 @@
 import json
-from TernarySearchTree import TST
+from TST.TernarySearchTree import TST
 
 myTree = TST()
 #Load the file and show it
@@ -55,6 +55,6 @@ def update():
     print ("----Full Tree----")
     myTree.fullTree(myTree.root)
 
-ruta = "data/formatJSON.json"
+ruta = "JSON_Information/formatJSON.json"
 cargarDatos(ruta)
 update()
